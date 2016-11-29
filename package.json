@@ -10,6 +10,7 @@
   "author": "Revath S Kumar <rsk@revathskumar.com> (http://blog.revathskumar.com)",
   "license": "MIT",
   "dependencies": {
+    "material-design-lite": "^1.2.1",
     "react": "https://registry.npmjs.org/react/-/react-15.4.1.tgz",
     "react-dom": "^15.4.1",
     "react-redux": "https://registry.npmjs.org/react-redux/-/react-redux-4.4.6.tgz",
