@@ -4,7 +4,7 @@ var webpack = require('webpack');
 module.exports = {
   entry: {
     app: ["./app/index.js"],
-    vendor: ['react', 'react-dom', 'react-router', 'redux', 'react-redux', 'material-design-lite']
+    vendor: ['react', 'react-dom', 'react-router', 'material-design-lite']
   },
   output: {
     path: path.resolve( __dirname, "dist"),
