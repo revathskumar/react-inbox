@@ -11,6 +11,7 @@ module.exports = {
     publicPath: '/assets/',
     filename: '[name].js'
   },
+  devtool: 'cheap-eval-source-map',
   devServer: {
     stats: {
       timings: true,
