@@ -1,5 +1,6 @@
 import {h, render, Component } from 'preact';
-import Router from 'preact-router';
+import { Router, Link } from 'preact-router';
+import 'preact/devtools';
 /** @jsx h */
 
 class Inbox extends Component {
@@ -57,7 +58,7 @@ class Inbox extends Component {
 
 const ListItem = ({id, title, body}) => {
   return (
-    <a href={`/inbox/${id}`} >
+    <a href={`/${id}`} >
       <li className="mdl-list__item mdl-list__item--three-line">
         <span className="mdl-list__item-primary-content">
           <i className="material-icons mdl-list__item-icon">mail</i>
@@ -132,7 +133,7 @@ class App extends Component {
       <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <header className="mdl-layout__header">
           <div className="mdl-layout__header-row">
-            <span className="mdl-layout-title">Title</span>
+            <span className="mdl-layout-title">Preact</span>
             <div className="mdl-layout-spacer"></div>
             <nav className="mdl-navigation mdl-layout--large-screen-only">
               <a className="mdl-navigation__link" href='/'>Inbox</a>
@@ -143,16 +144,16 @@ class App extends Component {
         <div className="mdl-layout__drawer">
           <span className="mdl-layout-title">Title</span>
           <nav className="mdl-navigation">
-            <a className="mdl-navigation__link" href='/'>Inbox</a>
-            <a className="mdl-navigation__link" href='/about'>About</a>
+            <Link className="mdl-navigation__link" href='/'>Inbox</Link>
+            <Link className="mdl-navigation__link" href='/about'>About</Link>
           </nav>
         </div>
         <main className="mdl-layout__content">
           <div className="page-content">
             <Router>
-              <Inbox path="/" default />
+              <Inbox path="/" />
               <About path="/about" />
-              <Mail path="/inbox/:id"/>
+              <Mail path="/:id"/>
             </Router>
           </div>
         </main>
