@@ -1,45 +1,70 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
+
+const initialState = {
+  mails: [],
+  uiState:"",
+  error:{},
+};
+
+const reducer = function(state = initialState, action) {
+  switch (action.type) {
+    case "UPDATE_FIELDS":
+      return {
+        ...state,
+        ...action.payload,
+      }
+    default:
+
+      return state;
+  }
+};
 
 const Inbox = () => {
-  const [uiState, setUiState] = useState("");
-  const [mails, setMails] = useState([]);
-  const [error, setError] = useState({});
+  const [state, dispatch] = useReducer(reducer,initialState)
 
   useEffect(() => {
-    console.log('useEffect', uiState)
-    if (uiState !== "") {
+    if (state.uiState !== "") {
       return;
     }
 
     fetch("http://jsonplaceholder.typicode.com/posts")
       .then(res => {
-        console.log(res);
         if (res.ok) {
           return res.json();
         }
         throw new Error(res.statusText);
       })
       .then(mails => {
-        setUiState("SUCCESS");
-        setMails(mails);
+        dispatch({ 
+          type: "UPDATE_FIELDS", 
+          payload: {
+            uiState: "SUCCESS",
+            mails: mails,
+          }
+        });
       }).catch(err => {
-        setUiState("FAILURE");
-        setError(err)
+        dispatch({ 
+          type: "UPDATE_FIELDS", 
+          payload: {
+            uiState: "FAILURE",
+            error: err,
+          }
+        });
       })
-  }, [uiState]);
+  }, [state.uiState]);
 
-  if (uiState === "") {
+  if (state.uiState === "") {
     return <div>Loading...</div>
   }
-  if (uiState === "FAILURE") {
-    return <div>{error.message}</div>
+  if (state.uiState === "FAILURE") {
+    return <div>{state.error.message}</div>
   }
 
 
-  if (uiState === "SUCCESS") {
+  if (state.uiState === "SUCCESS") {
     return (
       <ul>
-        {mails.map(mail => <li>{mail.title}</li>)}
+        {state.mails.map(mail => <li>{mail.title}</li>)}
       </ul>
     )
   }
